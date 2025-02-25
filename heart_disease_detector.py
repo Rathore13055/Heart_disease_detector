@@ -6,12 +6,17 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+import pickle
+
+# Author: Kumar Gaurav
+# Project: Heart Disease Detector
 
 # Load dataset
 url = "https://raw.githubusercontent.com/amanrai12/Heart-Disease-Prediction/master/dataset.csv"
 df = pd.read_csv(url)
 
 # Display first few rows
+print("Dataset Preview:")
 print(df.head())
 
 # Splitting data into features and target variable
@@ -36,12 +41,11 @@ y_pred = model.predict(X_test)
 # Evaluating the model
 accuracy = accuracy_score(y_test, y_pred)
 print(f'Accuracy: {accuracy:.2f}')
-print('Confusion Matrix:\n', confusion_matrix(y_test, y_pred))
-print('Classification Report:\n', classification_report(y_test, y_pred))
+print('\nConfusion Matrix:\n', confusion_matrix(y_test, y_pred))
+print('\nClassification Report:\n', classification_report(y_test, y_pred))
 
 # Save model and scaler
-import pickle
-with open("model.pkl", "wb") as f:
+with open("heart_disease_model.pkl", "wb") as f:
     pickle.dump(model, f)
 with open("scaler.pkl", "wb") as f:
     pickle.dump(scaler, f)
